@@ -1,0 +1,1 @@
+ceci est le code source de l'application dashmeals, il est open source et donne acces a tout le monde de le verifier et en etudies, a une condition ne pas compiler, ne pas la modifier et ne pas la publier sur le reseau 
