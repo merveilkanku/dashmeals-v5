@@ -1,0 +1,5 @@
+dashmeals/node_modules/
+dashmeals/dist/
+build_apk.log
+dashmeals.apk
+flutter_app/assets/www/
