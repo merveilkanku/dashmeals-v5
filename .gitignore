@@ -1,4 +1,4 @@
 dashmeals/node_modules/
 dashmeals/dist/
-build_apk.log
-mobile/assets/www/
+*.log
+dashmeals.apk
