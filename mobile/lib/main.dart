@@ -40,6 +40,11 @@ Page resource error:
       (controller.platform as AndroidWebViewController).setDomStorageEnabled(true);
     }
 
+    // Explicitly allow mixed content if any
+    if (controller.platform is AndroidWebViewController) {
+       AndroidWebViewController.enableDebugging(true);
+    }
+
     controller.loadFlutterAsset('assets/www/index.html');
   }
 
