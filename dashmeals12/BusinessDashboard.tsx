@@ -9,7 +9,7 @@ import {
   TrendingUp, Users, ShoppingBag, X, Save, Image as ImageIcon, MapPin,
   MessageSquare, Phone, Megaphone, Video, PlayCircle, Upload, AlertCircle, AlertTriangle, Bell, Moon, Sun, Globe, RefreshCw, Type, Shield, ShieldAlert, ShieldCheck, FileText, Download, Activity, ArrowRight,
   Lock, Eye, EyeOff, Smartphone, UserX, ToggleLeft, ToggleRight, Zap, User as UserIcon, Package, ChevronRight, ChevronDown, Edit3, Star, Heart, UserPlus, Award, ShoppingCart, Gift, Fingerprint, Search,
-  Store, ExternalLink, Info, HelpCircle, Book, Mail, Lightbulb, Brain, Bot, Send, Navigation, Mic, MicOff, CreditCard, Banknote, Headphones
+  Store, ExternalLink, Info, HelpCircle, Book, Mail, Lightbulb, Brain, Bot, Send, Navigation, Mic, MicOff, CreditCard, Banknote, Headphones, PlusSquare
 } from 'lucide-react';
 import { ChatWindow } from './components/ChatWindow';
 import { HelpCenter } from './components/HelpCenter';
