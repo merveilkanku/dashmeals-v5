@@ -137,18 +137,23 @@ export const AuthScreen: React.FC<Props> = ({ onLogin, isSupabaseReachable = tru
           city,
       }));
 
+      // Detect if we are in the mobile app (WebView)
+      const isMobileApp = window.location.protocol === 'file:' || navigator.userAgent.includes('DashMealsMobile');
+
       const currentOrigin = window.location.origin;
-      console.log("OAuth Redirect URL:", currentOrigin);
+      const redirectUrl = isMobileApp ? 'com.dashmeals.android://callback' : currentOrigin;
+
+      console.log("OAuth Redirect URL:", redirectUrl);
 
       // Detect if we are in the AI Studio preview
       const isPreview = currentOrigin.includes('.run.app');
 
-      if (isPreview) {
+      if (isPreview && !isMobileApp) {
           // In preview (iframe), we MUST use a popup
           const { data, error } = await supabase.auth.signInWithOAuth({
             provider: provider,
             options: {
-              redirectTo: currentOrigin,
+              redirectTo: redirectUrl,
               skipBrowserRedirect: true, // IMPORTANT: Get URL instead of redirecting
               queryParams: {
                 access_type: 'offline',
@@ -193,7 +198,7 @@ export const AuthScreen: React.FC<Props> = ({ onLogin, isSupabaseReachable = tru
           const { error } = await supabase.auth.signInWithOAuth({
             provider: provider,
             options: {
-              redirectTo: currentOrigin,
+              redirectTo: redirectUrl,
               // skipBrowserRedirect is false by default, so it will redirect the current window
               queryParams: {
                 access_type: 'offline',

@@ -47,6 +47,7 @@ class _DashMealsAppState extends State<DashMealsApp> {
   void _initWebView() {
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setUserAgent('DashMealsMobile')
       ..setBackgroundColor(const Color(0xFFFFFFFF))
       ..setNavigationDelegate(
         NavigationDelegate(
