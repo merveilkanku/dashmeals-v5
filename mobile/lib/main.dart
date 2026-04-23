@@ -117,18 +117,26 @@ Page resource error:
 
   void _handleDeepLink(Uri uri) {
     debugPrint('Handling deep link: $uri');
-    // We can pass the full URL to the WebView or just the fragment/query
-    // Supabase redirects usually contain access_token in the fragment (#)
 
-    // If it's an OAuth callback, we should inject it into the WebView
-    // Most SPA apps handle the URL hash automatically if we just navigate to it.
-
-    // Construct the internal URL. assets/www/index.html is the base.
-    // We can try to use controller.runJavaScript to set window.location.hash
+    // Supabase redirects often contain tokens in the fragment (#access_token=...)
+    // Instead of window.location.href, we try to update the hash directly
+    // which prevents a full reload and might fix the white screen issue in SPAs.
     if (uri.hasFragment || uri.query.isNotEmpty) {
-      final fragment = uri.hasFragment ? '#${uri.fragment}' : '';
-      final query = uri.query.isNotEmpty ? '?${uri.query}' : '';
-      controller.runJavaScript('window.location.href = "index.html$query$fragment";');
+      final fragment = uri.hasFragment ? uri.fragment : '';
+      final query = uri.query.isNotEmpty ? uri.query : '';
+
+      String js;
+      if (fragment.isNotEmpty) {
+         js = 'window.location.hash = "$fragment";';
+         if (query.isNotEmpty) {
+           js += ' window.location.search = "$query";';
+         }
+      } else {
+         js = 'window.location.search = "$query";';
+      }
+
+      debugPrint('Injecting JS: $js');
+      controller.runJavaScript(js);
     }
   }
 
@@ -141,9 +149,8 @@ Page resource error:
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: WebViewWidget(controller: controller),
-      ),
+      resizeToAvoidBottomInset: false,
+      body: WebViewWidget(controller: controller),
     );
   }
 }
